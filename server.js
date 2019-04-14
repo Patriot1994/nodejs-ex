@@ -2,8 +2,9 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+var engines = require('consolidate'); 
 Object.assign=require('object-assign')
+var bodyParser = require('body-parser')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
