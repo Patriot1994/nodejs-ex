@@ -2,6 +2,7 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+	request = require('request');
 var engines = require('consolidate'); 
 Object.assign=require('object-assign')
 var bodyParser = require('body-parser')
@@ -104,7 +105,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 
 app.get('/', function (req, res) {
-  res.render('index', {weather: null, error: null});
+  res.render('index.html', {weather: null, error: null});
 })
 
 app.post('/', function (req, res) {
@@ -113,14 +114,14 @@ app.post('/', function (req, res) {
 
   request(url, function (err, response, body) {
     if(err){
-      res.render('index', {weather: null, error: 'Error, please try again'});
+      res.render('index.html', {weather: null, error: 'Error, please try again'});
     } else {
       let weather = JSON.parse(body)
       if(weather.main == undefined){
-        res.render('index', {weather: null, error: 'Error, please try again'});
+        res.render('index.html', {weather: null, error: 'Error, please try again'});
       } else {
         let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
-        res.render('index', {weather: weatherText, error: null});
+        res.render('index.html', {weather: weatherText, error: null});
       }
     }
   });
